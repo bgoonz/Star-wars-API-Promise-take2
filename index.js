@@ -5,6 +5,14 @@ const fetchLuke = fetch("https://swapi.dev/api/people/1");
 const fetchFilms = fetch("https://swapi.dev/api/people/1");
 const fetchLukeHome = fetch("http://swapi.dev/api/planets/1/");
 
+const parseFilms = (array) => {
+  return array.map((ele) => {
+    return fetch(ele)
+      .then((response) => response.json())
+      .then((filmObj) => filmObj.title);
+  });
+};
+
 const fetchedLuke = fetchLuke
   .then((lukeResponse) => lukeResponse.json())
   .then((lukeObj) => lukeObj.name)
@@ -19,22 +27,15 @@ const fetchedFilmNames = fetchFilms
   .then((startResponse) => startResponse.json())
   .then((startObj) => startObj.films)
   .then((films) => {
-    let filmNames = [];
-    for (let i = 0; i < films.length; i++) {
-      let film = fetch(films[i]);
-      filmNames.push(film.name);
-    }
+    return Promise.all(parseFilms(films));
   })
+  .then((processFilms) => processFilms)
   .catch((err) => console.error(err));
 
 const getInfo = Promise.all([fetchedLuke, fetchedHome, fetchedFilmNames])
-  .then(() =>
+  .then((array) =>
     console.log(
-      `My name is ${fetchedLuke},
-      I am from ${fetchedHome},
-      and I starred in the following films:
-      ${fetchedFilmNames[0]}, ${fetchedFilmNames[1]},
-      ${fetchedFilmNames[2]}, ${fetchedFilmNames[3]}`
+      `My name is ${array[0]},\nI am from ${array[1]}, \nand I starred in the following films: \n\t${array[2][0]}, ${array[2][1]}, ${array[2][2]}, ${array[2][3]}`
     )
   )
   .catch((err) => console.error(err));

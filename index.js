@@ -36,7 +36,7 @@ const getInfo = Promise.all([fetchedLuke, fetchedHome, fetchedFilmNames])
   .then((array) =>
     fs.writeFile(
       "./testFile.txt",
-      `My name is ${array[0]},\nI am from ${array[1]}, \nand I starred in the following films: \n\t${array[2][0]}, ${array[2][1]}, ${array[2][2]}, ${array[2][3]}`,
+      `My name is ${array[0]},\nI am from ${array[1]}, \nI starred in the following films: \n\t-${array[2][0]}, \n\t-${array[2][1]}, \n\t-${array[2][2]}, \n\t-${array[2][3]}`,
       "utf-8"
     )
   )

@@ -19,6 +19,6 @@
   "homepage": "https://github.com/bgoonz/Star-wars-API-Promise-take2#readme",
   "dependencies": {
     "clear": "^0.1.0",
-    "node-fetch": "^2.6.1"
+    "node-fetch": "^2.6.7"
   }
 }
